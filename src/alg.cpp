@@ -1,31 +1,26 @@
 // Copyright 2021 NNTU-CS
+#include <iostream>
+#include <unordered_map>
+#include <vector>
 
 int countPairs1(int *arr, int len, int value) {
+    std::unordered_map<int, int> numCount;
     int count = 0;
     for (int i = 0; i < len; i++) {
-        for (int j = i + 1; j < len; j++) {
-            if (arr[i] + arr[j] == value) {
-                count++;
-            }
+        if (numCount.find(value - arr[i]) != numCount.end()) {
+            count++;
         }
+        numCount[arr[i]]++;
     }
     return count;
 }
 
 int countPairs2(int *arr, int len, int value) {
+    std::unordered_map<int, int> numCount;
     int count = 0;
-    int left = 0;
-    int right = len - 1;
-    while (left < right) {
-        if (arr[left] + arr[right] == value) {
-            count++;
-            left++;
-            right--;
-        } else if (arr[left] + arr[right] < value) {
-            left++;
-        } else {
-            right--;
-        }
+    for (int i = 0; i < len; i++) {
+        count += numCount[value - arr[i]];
+        numCount[arr[i]]++;
     }
     return count;
 }
@@ -33,7 +28,6 @@ int countPairs2(int *arr, int len, int value) {
 int binarySearch(int *arr, int left, int right, int value) {
     while (left <= right) {
         int mid = left + (right - left) / 2;
-
         if (arr[mid] == value) {
             return mid;
         } else if (arr[mid] < value) {
