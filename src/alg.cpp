@@ -34,21 +34,20 @@ int binarySearch(int *arr, int size, int value) {
         } else if (arr[mid] > value) {
             h = mid - 1;
         } else {
-            count ++;
+            count++;
             int i = mid - 1;
             mid++;
-            while(arr[mid] == value) {
+            while (arr[mid] == value) {
                 count++;
                 mid++;
             }
-            while (arr[i] == value){
+            while (arr[i] == value) {
                 count++;
                 i--;
             }
             break;
         }
-        return count;
-    }
+    } return count;
 }
 
 int countPairs3(int *arr, int len, int value) {
